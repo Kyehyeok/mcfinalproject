@@ -1,3 +1,6 @@
 .mcfinal_title_logo{
     font-family: 'Bebas Neue', cursive;
 }
+.mcfinal_menu_logo{
+    height: 10rem; background-color: darkviolet; border-radius: 1rem; margin: 2rem;
+}
