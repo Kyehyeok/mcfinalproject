@@ -11,3 +11,15 @@ def account_ownership_required(func):
             return func(request, *args, **kwargs)
     return decorated
 
+
+    # def get(self, *args, **kwargs):
+    #     if self.requset.user.is_authenticated and self.get_object() == self.request.user :
+    #         return super().get(*args, **kwargs)
+    #     else:
+    #         return HttpResponseForbidden()
+    #
+    # def post(self, *args, **kwargs):
+    #     if self.requset.user.is_authenticated and self.get_object() == self.request.user :
+    #         return super().get(*args, **kwargs)
+    #     else:
+    #         return HttpResponseForbidden()
