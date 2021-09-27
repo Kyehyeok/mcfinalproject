@@ -4,24 +4,24 @@
 
     <div style="text-align:center; height: 10rem;">
         
-<!--        <form action="/account/hello_world/" method="post">-->
-<!--            {% csrf_token %}-->
-<!--            <div>-->
-<!--                <input type="text" name="hello_world_input">-->
-<!--            </div>-->
-<!--            -->
-<!--            <div>-->
-<!--                <input type="submit" class="btn btn-primary" value="POST">-->
-<!--            </div>-->
-<!--        </form>-->
+        <form action="/account/hello_world/" method="post">
+            {% csrf_token %}
+            <div>
+                <input type="text" name="hello_world_input">
+            </div>
 
-<!--        {% if hello_world_list %}-->
-<!--            {% for hello_world in hello_world_list %}-->
-<!--            <h3>-->
-<!--                {{ hello_world.text }}-->
-<!--            </h3>-->
-<!--            {% endfor %}-->
-<!--        {% endif %}-->
+            <div>
+                <input type="submit" class="btn btn-primary" value="POST">
+            </div>
+        </form>
+
+        {% if hello_world_list %}
+            {% for hello_world in hello_world_list %}
+            <h3>
+                {{ hello_world.text }}
+            </h3>
+            {% endfor %}
+        {% endif %}
 
         <span style="background-color: darkviolet; height: 8rem; width: 8rem; border-radius: 10rem; margin: 2rem;">cat1</span>
         <span style="background-color: darkviolet; height: 8rem; width: 8rem; border-radius: 10rem; margin: 2rem;">cat1</span>
