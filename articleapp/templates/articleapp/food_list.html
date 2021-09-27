@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .container div {
+      width: 250px;
+      background-color: antiquewhite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 1rem;
+    }
+    .container img {
+      width: 100%;
+      border-radius: 1rem;
+    }
+</style>
+
+    <div class="container">
+      {% if food_list %}
+          {% for food in food_list %}
+          <div>
+              {{ food.name }}
+          </div>
+          {% endfor %}
+      {% else %}
+        <h3>없다</h3>
+
+      {% endif %}
+
+
+    </div>
+
+
+    {% include 'snippets/pagination.html' with page_obj=page_obj %}
+
+
+
+        <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Some text in the Modal..</p>
+      </div>
+
+    </div>
+
+    <script src="{% static 'js/magicgrid.js' %}"></script>
+    <script src="{% static 'js/modal.js' %}"></script>
+
+{% endblock %}

@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
-class Article(models.Model):
+class Ingridient(models.Model):
 
     ingri = models.CharField(max_length=20, null=True)
     price = models.CharField(max_length=10, null=True)
@@ -12,3 +12,7 @@ class Article(models.Model):
     imageurl = models.CharField(max_length=200, null=True)
     quantity = models.CharField(max_length=10, null=True)
     keyword = models.CharField(max_length=10, null=True)
+
+class Food(models.Model):
+    name = models.CharField(max_length=20, null=True)
+    ingridient = models.CharField(max_length=200, null=True)

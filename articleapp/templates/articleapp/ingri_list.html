@@ -18,17 +18,14 @@
 </style>
 
     <div class="container">
-      <div class="item1">
-        <img src="https://picsum.photos/200/300" alt="">
-      </div>
-      {% if ingri_list %}
-          {% for ingri in ingri_list %}
+      {% if ingridient_list %}
+          {% for ingri in ingridient_list %}
           <div>
               {{ ingri.ingri }}
           </div>
           {% endfor %}
       {% else %}
-        <h3>업서</h3>
+        <h3>없다</h3>
 
       {% endif %}
 
@@ -37,4 +34,5 @@
 
     <script src="{% static 'js/magicgrid.js' %}"></script>
 
+    {% include 'snippets/pagination.html' with page_obj=page_obj %}
 {% endblock %}

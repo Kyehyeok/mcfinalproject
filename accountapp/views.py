@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 
@@ -28,6 +29,11 @@ def hello_world(request):
             hello_world_list = HelloWorld.objects.all()
             return render(request, 'accountapp/hello_world.html', context={'hello_world_list':hello_world_list})
 
+
+class LoginView(LoginView):
+
+    def get_success_url(self):
+        return reverse('accountapp:hello_world')
 
 class AccountCreateView(CreateView):
     model = User
