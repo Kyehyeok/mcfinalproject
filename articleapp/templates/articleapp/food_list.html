@@ -17,41 +17,45 @@
     }
 </style>
 
-    <div class="container">
-      {% if food_list %}
-          {% for food in food_list %}
-          <div>
-              {{ food.name }}
-          </div>
-          {% endfor %}
-      {% else %}
-        <h3>없다</h3>
 
-      {% endif %}
+  <!--버튼-->
+  <div class="sample">
+
+    {% if food_list %}
+      {% for food in food_list %}
+        <span>
+            <button class="open-modal">{{ food.name }}</button>
+        <div class="modal">
+           <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title">{{ food.name }}</h2><button class="close-modal">&times</button>
+                </div>
+                <div class="modal-body">
+                    <h3>{{ food.name }}</h3>
+                    <p><input type="checkbox" name="color" value="blue">{{ food_detail.ingredient }}</p>
+                </div>
+                <div class="modal-footer">
+                  <button class="close-modal">식재료 추가 구매</button>
+                  <button class="close-modal">동일 요리 밀키트 구매</button>
+                </div>
+           </div>
+        </div>
+        </span>
+      {% endfor %}
+
+    {% else %}
+      <h3>NODB</h3>
+    {% endif %}
+  </div>
 
 
-    </div>
+
+<script  src="{% static 'js/modal.js' %}"></script>
+<script src="{% static 'js/magicgrid.js' %}"></script>
 
 
-    {% include 'snippets/pagination.html' with page_obj=page_obj %}
+{% include 'snippets/pagination.html' with page_obj=page_obj %}
 
 
-
-        <!-- Trigger/Open The Modal -->
-    <button id="myBtn">Open Modal</button>
-
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Some text in the Modal..</p>
-      </div>
-
-    </div>
-
-    <script src="{% static 'js/magicgrid.js' %}"></script>
-    <script src="{% static 'js/modal.js' %}"></script>
 
 {% endblock %}

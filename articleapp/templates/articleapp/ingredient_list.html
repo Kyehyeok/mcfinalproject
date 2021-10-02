@@ -18,14 +18,14 @@
 </style>
 
     <div class="container">
-      {% if ingridient_list %}
-          {% for ingri in ingridient_list %}
+      {% if ingredient_list %}
+          {% for ingredient in ingredient_list %}
           <div>
-              {{ ingri.ingri }}
+              {{ ingredient.ingredient }}
           </div>
           {% endfor %}
       {% else %}
-        <h3>없다</h3>
+        <h3>NO</h3>
 
       {% endif %}
 

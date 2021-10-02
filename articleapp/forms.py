@@ -1,14 +1,20 @@
 from django.forms import ModelForm
 
-from articleapp.models import Ingridient, Food
+from articleapp.models import Ingredient, Food, FoodDetail
 
 
 class IngredientListForm(ModelForm):
     class Meta:
-        model = Ingridient
-        fields = ['ingri','price','subscribe','bigcat','smallcat','imageurl','quantity','keyword']
+        model = Ingredient
+        fields = ['code','ingredient','price','subscribe','bigcat','smallcat','imageurl','quantity','keyword']
 
-class IngredientListForm(ModelForm):
+class FoodListForm(ModelForm):
     class Meta:
         model = Food
-        fields = ['name','ingridient']
+        fields = ['code','name','ingredient','quantity']
+
+class FoodDetailListForm(ModelForm):
+    class Meta:
+        model = FoodDetail
+        fields = ['code','name']
+
