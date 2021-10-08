@@ -3,14 +3,17 @@
 {% block content %}
 
     <div style="text-align:center; height: 30rem;">
+        <div>
+            <a href="{% url 'articleapp:ingredient' %}">
+                <span>식재료</span>
+            </a>
+        </div>
 
-        <a href="{% url 'articleapp:ingredient' %}">
-            <span>식재료</span>
-        </a>
-
-        <a href="{% url 'articleapp:food' %}" >
-            <span>음식</span>
-        </a>
+        <div>
+            <a href="{% url 'articleapp:food' %}" >
+                <span>음식</span>
+            </a>
+        </div>
     </div>
 
 {% endblock %}

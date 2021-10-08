@@ -17,7 +17,6 @@
     }
 </style>
 
-
   <!--버튼-->
   <div class="sample">
 
@@ -31,14 +30,18 @@
                   <h2 class="modal-title">{{ food.name }}</h2><button class="close-modal">&times</button>
                 </div>
                 <div class="modal-body">
-                    {% for food_detail in food_detail_list %}
-                        {% if food.code == food_detail.code %}
-                            <p><input type="checkbox" name="color" value="blue">{{ food_detail.ingredient }}</p>
-                        {% endif %}
-                    {% endfor %}
+                    <form action="{% url 'articleapp:ingredient_buy' %}" method="POST">
+                        {% csrf_token %}
+                        {% for food_detail in food_detail_list %}
+                            {% if food.code == food_detail.code %}
+                                <p><input type="checkbox" name="checks[]" value="{{ food_detail.ingredient }}">{{ food_detail.ingredient }}</input></p>
+                            {% endif %}
+                        {% endfor %}
+                        <button type="submit" >식재료 추가 구매</button>
+                    </form>
                 </div>
+
                 <div class="modal-footer">
-                  <button class="close-modal">식재료 추가 구매</button>
                   <button class="close-modal">동일 요리 밀키트 구매</button>
                 </div>
            </div>

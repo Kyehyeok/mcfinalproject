@@ -2,9 +2,62 @@
 {% load static %}
 {% block content %}
 
-    <div style="text-align:center; height: 30rem;">
-        식재료 구매 창
+<style>
+    .container div {
+      width: 250px;
+      background-color: antiquewhite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 1rem;
+    }
+    .container img {
+      width: 100%;
+      border-radius: 1rem;
+    }
+</style>
 
-    </div>
+<div style="text-align:center; height: 30rem;">
+
+    {% for ing in check_ingre %}
+        <p>{{ ing }}</p>
+            <div>
+                {% for product in ingre_list %}
+                    {% if product.keyword == ing %}
+                        <span>
+                            <button class="open-modal">
+                                <img style="width: 10rem; border-radius: 1rem;" src ="{{ product.imageurl }}" alt="">
+                                <p>{{ product.ingredient }}</p>
+                                <p>{{ product.price }}</p>
+                            </button>
+
+                            <div class="modal">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title">{{ product.ingredient }}</h2>
+                                        <button class="close-modal">&times</button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        {{ product.subscribe }}
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="close-modal">즉시 구매</button>
+                                        <button class="close-modal">장바구니 넣기</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+    {% endfor %}
+
+</div>
+
+<script  src="{% static 'js/modal.js' %}"></script>
 
 {% endblock %}
