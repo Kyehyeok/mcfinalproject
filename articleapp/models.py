@@ -23,3 +23,27 @@ class FoodDetail(models.Model):
 class Food(models.Model):
     code = models.CharField(max_length=20, null=True)
     name = models.CharField(max_length=20, null=True)
+
+class Mealkit(models.Model):
+    code = models.CharField(max_length=20, null=True)
+    ranking = models.CharField(max_length=20, null=True)
+    mealkit = models.CharField(max_length=50, null=True)
+    product = models.CharField(max_length=20, null=True)
+    thumbnail = models.CharField(max_length=200, null=True)
+    price = models.CharField(max_length=20, null=True)
+    brand = models.CharField(max_length=20, null=True)
+    url = models.CharField(max_length=200, null=True)
+    review_cnt = models.CharField(max_length=20, null=True)
+
+
+class IngredientUnique(models.Model):
+    code = models.CharField(max_length=20, null=True)
+    bigcat = models.CharField(max_length=20, null=True)
+    keyword = models.CharField(max_length=20, null=True)
+
+    def to_json(self):
+        return {
+            "code": self.code,
+            "bigcat": self.bigcat,
+            "keyword": self.keyword
+        }

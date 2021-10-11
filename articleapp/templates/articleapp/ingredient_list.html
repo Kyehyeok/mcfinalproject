@@ -17,12 +17,36 @@
     }
 </style>
 
-    <div class="container">
+<div class="sample">
       {% if ingredient_list %}
           {% for ingredient in ingredient_list %}
-          <div>
-              {{ ingredient.ingredient }}
-          </div>
+             <span>
+                <button class="open-modal" type="button">{{ ingredient.ingredient }}</button>
+                 <div class="modal">
+                     <div class="modal-content">
+
+                         <div class="modal-header">
+                            <h2 class="modal-title">{{ ingredient.ingredient }}</h2>
+                            <button class="close-modal">&times</button>
+                         </div>
+
+                         <div class="modal-body">
+                            {% if ingredient.subscribe %}
+                                {{ ingredient.subscribe }}
+                            {% else %}
+                                {{ 없음 }}
+                            {% endif %}
+                         </div>
+
+                         <div class="modal-footer">
+                            <button class="close-modal">즉시 구매</button>
+                            <button class="close-modal">장바구니 넣기</button>
+                         </div>
+
+                    </div>
+                </div>
+             </span>
+
           {% endfor %}
       {% else %}
         <h3>NO</h3>
@@ -32,7 +56,8 @@
 
     </div>
 
-    <script src="{% static 'js/magicgrid.js' %}"></script>
+<script src="{% static 'js/modal.js' %}"></script>
+<script src="{% static 'js/magicgrid.js' %}"></script>
 
-    {% include 'snippets/pagination.html' with page_obj=page_obj %}
+{% include 'snippets/pagination.html' with page_obj=page_obj %}
 {% endblock %}

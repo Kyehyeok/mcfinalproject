@@ -1,11 +1,14 @@
 
 # Create your views here.
+import json
+
 from django.http import request
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 
-from articleapp.models import Ingredient, Food, FoodDetail
+from articleapp.models import Ingredient, Food, FoodDetail, Mealkit, IngredientUnique
+
 
 class IngredientListView(ListView):
     model = Ingredient
@@ -24,7 +27,7 @@ class FoodListView(ListView):
     def get_context_data(self, **kwargs):
         # 기본 구현을 호출해 context를 가져온다.
         context = super(FoodListView, self).get_context_data(**kwargs)
-        # 모든 책을 쿼리한 집합을 context 객체에 추가한다.
+        # 모든 쿼리 집합을 context 객체에 추가한다.
         context['food_detail_list'] = FoodDetail.objects.all()
         return context
 
@@ -43,3 +46,37 @@ class IngredientBuyView(ListView):
         ingredient_list = Ingredient.objects.all()
         check = request.POST.getlist('checks[]')
         return render(request, 'articleapp/ingredient_buy.html', {'check_ingre': check, 'ingre_list': ingredient_list})
+
+
+class MealkitBuyView(ListView):
+    model = Mealkit
+    context_object_name = 'mealkit_buy'
+    template_name = 'articleapp/mealkit_buy.html'
+
+    def post(self, request):
+        mealkit_list = Mealkit.objects.all()
+        check = request.POST.get('check_mealkit')
+        return render(request, 'articleapp/mealkit_buy.html', {'check_mealkit': check,'mealkit_list':mealkit_list})
+
+class MyFridgeView(ListView):
+    model = IngredientUnique
+    context_object_name = 'fridge_list'
+    template_name = 'articleapp/my_fridge.html'
+    paginate_by = 30
+
+
+    def get_context_data(self, **kwargs):
+        ingre_cat = {'채소', '정육계란', '수산해산건어물', '과일견과쌀'}
+        context = super(MyFridgeView, self).get_context_data(**kwargs)
+
+        for i in ingre_cat:
+            context[i] = IngredientUnique.objects.filter(bigcat=i).values()
+        return context
+
+def post_list(request):
+    posts=IngredientUnique.objects.all()
+    context={
+        "posts": posts,
+        "posts_js": json.dumps([post.to_json() for post in posts])
+    }
+    return render(request, "articleapp/my_fridge.html", context)

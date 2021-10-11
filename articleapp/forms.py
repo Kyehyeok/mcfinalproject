@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from articleapp.models import Ingredient, Food, FoodDetail
+from articleapp.models import Ingredient, Food, FoodDetail, IngredientUnique
 
 
 class IngredientListForm(ModelForm):
@@ -18,3 +18,7 @@ class FoodDetailListForm(ModelForm):
         model = FoodDetail
         fields = ['code','name']
 
+class IngredientUniqueListForm(ModelForm):
+    class Meta:
+        model = IngredientUnique
+        fields = ['code','bigcat','keyword']

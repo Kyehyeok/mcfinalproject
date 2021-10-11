@@ -27,7 +27,8 @@
         <div class="modal">
            <div class="modal-content">
                 <div class="modal-header">
-                  <h2 class="modal-title">{{ food.name }}</h2><button class="close-modal">&times</button>
+                  <h2 class="modal-title">{{ food.name }}</h2>
+                    <button class="close-modal">&times</button>
                 </div>
                 <div class="modal-body">
                     <form action="{% url 'articleapp:ingredient_buy' %}" method="POST">
@@ -37,13 +38,17 @@
                                 <p><input type="checkbox" name="checks[]" value="{{ food_detail.ingredient }}">{{ food_detail.ingredient }}</input></p>
                             {% endif %}
                         {% endfor %}
+                        <hr>
                         <button type="submit" >식재료 추가 구매</button>
+
+
+                    </form>
+                    <form action="{% url 'articleapp:mealkit_buy' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name="check_mealkit" value="{{ food.name }}" >밀키트</button>
                     </form>
                 </div>
 
-                <div class="modal-footer">
-                  <button class="close-modal">동일 요리 밀키트 구매</button>
-                </div>
            </div>
         </div>
         </span>

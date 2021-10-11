@@ -16,40 +16,47 @@
       border-radius: 1rem;
     }
 </style>
-
-<div style="text-align:center; height: 30rem;">
+<div class="sample">
 
     {% for ing in check_ingre %}
         <p>{{ ing }}</p>
             <div>
                 {% for product in ingre_list %}
-                    {% if product.keyword == ing %}
-                        <span>
-                            <button class="open-modal">
-                                <img style="width: 10rem; border-radius: 1rem;" src ="{{ product.imageurl }}" alt="">
-                                <p>{{ product.ingredient }}</p>
-                                <p>{{ product.price }}</p>
-                            </button>
+                    {% if product.keyword %}
+                        {% if product.keyword == ing %}
+                            <span>
 
-                            <div class="modal">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h2 class="modal-title">{{ product.ingredient }}</h2>
-                                        <button class="close-modal">&times</button>
+                                <button class="open-modal" type="button">
+                                    <img style="width: 10rem; border-radius: 1rem;" src ="{{ product.imageurl }}" alt="">
+                                    {{ product.ingredient }}
+                                    {{ product.price }}
+                                </button>
+
+                                <div class="modal">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <h2 class="modal-title">{{ product.ingredient }}</h2>
+                                            <button class="close-modal">&times</button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            {% if product.subscribe %}
+                                                {{ product.subscribe }}
+                                            {% else %}
+                                                {{ 없음 }}
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button class="close-modal">즉시 구매</button>
+                                            <button class="close-modal">장바구니 넣기</button>
+                                        </div>
+
                                     </div>
-
-                                    <div class="modal-body">
-                                        {{ product.subscribe }}
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button class="close-modal">즉시 구매</button>
-                                        <button class="close-modal">장바구니 넣기</button>
-                                    </div>
-
                                 </div>
-                            </div>
-                        </span>
+                            </span>
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
             </div>

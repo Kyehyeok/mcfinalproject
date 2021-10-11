@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .container div {
+      width: 250px;
+      background-color: antiquewhite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 1rem;
+    }
+    .container img {
+      width: 100%;
+      border-radius: 1rem;
+    }
+</style>
+<div class="sample">
+
+
+    <input type="button" value="채소" onclick="execute1();">
+    <input type="button" value="정육/계란" onclick="execute2();">
+    <input type="button" value="수산/해산/건어물" onclick="execute3();">
+    <input type="button" value="과일/견과/쌀" onclick="execute4();">
+    <div id="show_ingre"></div>
+
+
+</div>
+
+
+<script type="text/javascript">
+    function execute1(){
+    var posts = JSON.parse("{{ posts_js | escapejs }}")
+    var html = "";
+    posts.forEach(function(e){
+    if(e['bigcat']=="채소"){
+        var target = document.getElementById("show_ingre");
+        html += "<span> ";
+        html += e['keyword']
+        html += "</span>";
+        target.innerHTML = html;
+        }
+    })
+    }
+
+    function execute2(){
+    var posts = JSON.parse("{{ posts_js | escapejs }}")
+    var html = "";
+    posts.forEach(function(e){
+    if(e['bigcat']=="정육계란"){
+        var target = document.getElementById("show_ingre");
+        html += "<span> ";
+        html += e['keyword']
+        html += "</span>";
+        target.innerHTML = html;
+        }
+    })
+    }
+
+    function execute3(){
+    var posts = JSON.parse("{{ posts_js | escapejs }}")
+    var html = "";
+    posts.forEach(function(e){
+    if(e['bigcat']=="수산해산건어물"){
+        var target = document.getElementById("show_ingre");
+        html += "<span> ";
+        html += e['keyword']
+        html += "</span>";
+        target.innerHTML = html;
+        }
+    })
+    }
+
+    function execute4(){
+    var posts = JSON.parse("{{ posts_js | escapejs }}")
+    var html = "";
+    posts.forEach(function(e){
+    if(e['bigcat']=="과일견과쌀"){
+        var target = document.getElementById("show_ingre");
+        html += "<span> ";
+        html += e['keyword']
+        html += "</span>";
+        target.innerHTML = html;
+        }
+    })
+    }
+
+</script>
+
+
+
+{% endblock %}
+
