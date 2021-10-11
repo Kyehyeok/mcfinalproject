@@ -31,6 +31,7 @@ a {
   text-transform: uppercase;
 }
 
+
 button {
   background: transparent;
   border: 0;
@@ -42,6 +43,7 @@ button {
   padding: 0 1rem;
   text-transform: uppercase;
 }
+
 button:hover {
     color:#111;
   }

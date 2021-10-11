@@ -18,13 +18,11 @@
 </style>
 <div class="sample">
 
-
-    <input type="button" value="채소" onclick="execute1();">
-    <input type="button" value="정육/계란" onclick="execute2();">
-    <input type="button" value="수산/해산/건어물" onclick="execute3();">
-    <input type="button" value="과일/견과/쌀" onclick="execute4();">
+    <input type="button" class="btn btn-dark rounded-pill mt-3 mb-3 px-3" value="채소" onclick="execute1();">
+    <input type="button" class="btn btn-dark rounded-pill mt-3 mb-3 px-3" value="정육/계란" onclick="execute2();">
+    <input type="button" class="btn btn-dark rounded-pill mt-3 mb-3 px-3" value="수산/해산/건어물" onclick="execute3();">
+    <input type="button" class="btn btn-dark rounded-pill mt-3 mb-3 px-3" value="과일/견과/쌀" onclick="execute4();">
     <div id="show_ingre"></div>
-
 
 </div>
 
@@ -36,9 +34,9 @@
     posts.forEach(function(e){
     if(e['bigcat']=="채소"){
         var target = document.getElementById("show_ingre");
-        html += "<span> ";
+        html += "<button> ";
         html += e['keyword']
-        html += "</span>";
+        html += "</button>";
         target.innerHTML = html;
         }
     })
@@ -50,9 +48,9 @@
     posts.forEach(function(e){
     if(e['bigcat']=="정육계란"){
         var target = document.getElementById("show_ingre");
-        html += "<span> ";
+        html += "<button> ";
         html += e['keyword']
-        html += "</span>";
+        html += "</button>";
         target.innerHTML = html;
         }
     })
@@ -64,9 +62,9 @@
     posts.forEach(function(e){
     if(e['bigcat']=="수산해산건어물"){
         var target = document.getElementById("show_ingre");
-        html += "<span> ";
+        html += "<button> ";
         html += e['keyword']
-        html += "</span>";
+        html += "</button>";
         target.innerHTML = html;
         }
     })
@@ -78,16 +76,18 @@
     posts.forEach(function(e){
     if(e['bigcat']=="과일견과쌀"){
         var target = document.getElementById("show_ingre");
-        html += "<span> ";
+        html += "<button> ";
         html += e['keyword']
-        html += "</span>";
+        html += "</button>";
         target.innerHTML = html;
         }
     })
     }
 
 </script>
+<script src="{% static 'js/magicgrid.js' %}"></script>
 
+{% include 'snippets/pagination.html' with page_obj=page_obj %}
 
 
 {% endblock %}
