@@ -3,92 +3,75 @@
 {% block content %}
 
 <style>
-    .container div {
-      width: 250px;
-      background-color: antiquewhite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 1rem;
-    }
-    .container img {
-      width: 100%;
-      border-radius: 1rem;
-    }
-</style>
-<div class="sample">
+.updown {
+border: 5px solid black; width: 0.1px; height: 500px;
+}
 
-    <input type="button" class="btn btn-dark rounded-pill mt-3 mb-3 px-3" value="채소" onclick="execute1();">
-    <input type="button" class="btn btn-dark rounded-pill mt-3 mb-3 px-3" value="정육/계란" onclick="execute2();">
-    <input type="button" class="btn btn-dark rounded-pill mt-3 mb-3 px-3" value="수산/해산/건어물" onclick="execute3();">
-    <input type="button" class="btn btn-dark rounded-pill mt-3 mb-3 px-3" value="과일/견과/쌀" onclick="execute4();">
-    <div id="show_ingre"></div>
+.parent {
+    display: flex;
+}
+.child1 {
+    flex: 2;
+}
+.child2 {
+    flex: 1;
+}
+
+
+</style>
+
+
+<!-- <div class="updown"></div>-->
+<div style="margin:3rem;">
 
 </div>
 
 
+<div class="parent" style=" background: #585858;">
+    <div class="child1" style="background: #2E9AFE; margin: 5rem;">
+        <div>냉장고에 있는 식재료를 추가해주세요</div>
+            <div>
+                <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="채소" onclick="execute(this);">
+                <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="정육계란" onclick="execute(this);">
+                <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="수산해산건어물" onclick="execute(this);">
+                <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="과일견과쌀" onclick="execute(this);">
+            </div>
+
+        <div id="show_ingre" ></div>
+    </div>
+    <div class="child2" style="background: #FA5858; margin: 5rem;">
+        <div>추가하신 식재료 리스트</div>
+        <div id='result'></div>
+    </div>
+</div>
+
 <script type="text/javascript">
-    function execute1(){
-    var posts = JSON.parse("{{ posts_js | escapejs }}")
+    function execute(bt){
+    var posts = JSON.parse("{{ posts_js | escapejs }}");
     var html = "";
     posts.forEach(function(e){
-    if(e['bigcat']=="채소"){
+    if(e['bigcat'] == bt.value){
         var target = document.getElementById("show_ingre");
-        html += "<button> ";
-        html += e['keyword']
+        html += "<button type='button' id='test' class='open-modal' name=ingre value =";
+        html += e['keyword'].replace(" ","");
+        html += " onclick='getButtonValue(this);'>";
+        html += e['keyword'];
         html += "</button>";
         target.innerHTML = html;
         }
     })
     }
 
-    function execute2(){
-    var posts = JSON.parse("{{ posts_js | escapejs }}")
-    var html = "";
-    posts.forEach(function(e){
-    if(e['bigcat']=="정육계란"){
-        var target = document.getElementById("show_ingre");
-        html += "<button> ";
-        html += e['keyword']
-        html += "</button>";
-        target.innerHTML = html;
-        }
-    })
+    function getButtonValue(bt) {
+    var target = document.getElementById("result");
+    target.innerHTML += "<button type='button' class='open-modal' value="+bt.value+" onclick='getDeleteValue(this);'>"+ bt.value+ "</button>";
     }
 
-    function execute3(){
-    var posts = JSON.parse("{{ posts_js | escapejs }}")
-    var html = "";
-    posts.forEach(function(e){
-    if(e['bigcat']=="수산해산건어물"){
-        var target = document.getElementById("show_ingre");
-        html += "<button> ";
-        html += e['keyword']
-        html += "</button>";
-        target.innerHTML = html;
-        }
-    })
+    function getDeleteValue(bt) {
+    bt.remove()
     }
-
-    function execute4(){
-    var posts = JSON.parse("{{ posts_js | escapejs }}")
-    var html = "";
-    posts.forEach(function(e){
-    if(e['bigcat']=="과일견과쌀"){
-        var target = document.getElementById("show_ingre");
-        html += "<button> ";
-        html += e['keyword']
-        html += "</button>";
-        target.innerHTML = html;
-        }
-    })
-    }
-
 </script>
 <script src="{% static 'js/magicgrid.js' %}"></script>
 
-{% include 'snippets/pagination.html' with page_obj=page_obj %}
-
 
 {% endblock %}
-

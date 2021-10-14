@@ -1,25 +1,36 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<style>
+.container{
+    display: flex;
+    justify-content: center;
+}
+.container .item{
+    width: 300px;
+    height: 300px;
+    border: 2px solid black;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+<div class="container">
 
-    <div style="text-align:center; height: 30rem;">
-        <div>
-            <a href="{% url 'articleapp:ingredient' %}">
-                <span>식재료</span>
-            </a>
-        </div>
+        <a href="{% url 'articleapp:ingredient' %}">
+            <div class="item">식재료 구매</div>
+        </a>
 
-        <div>
-            <a href="{% url 'articleapp:food' %}" >
-                <span>음식</span>
-            </a>
-        </div>
+        <a href="{% url 'articleapp:food' %}" >
+            <div class="item">음식 고르기</div>
+        </a>
 
-        <div>
-            <a href="{% url 'articleapp:my_fridge' %}" >
-                <span>My fridge</span>
-            </a>
-        </div>
-    </div>
+
+        <a href="{% url 'articleapp:my_fridge' %}">
+            <div class="item">냉장고 식재료를 이용한 음식 추천 </div>
+        </a>
+
+</div>
 
 {% endblock %}

@@ -28,8 +28,12 @@
 
                                 <button class="open-modal" type="button">
                                     <img style="width: 10rem; border-radius: 1rem;" src ="{{ product.imageurl }}" alt="">
-                                    {{ product.ingredient }}
-                                    {{ product.price }}
+                                    <div>
+                                        {{ product.ingredient }}
+                                    </div>
+                                    <div>
+                                        {{ product.price }}
+                                    </div>
                                 </button>
 
                                 <div class="modal">

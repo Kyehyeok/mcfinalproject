@@ -16,9 +16,7 @@ function openModal(e) {
 }
 
 function closeModal(e) {
-
   e.target.parentElement.parentElement.parentElement.classList.remove('visible');
-
 }
 
 
