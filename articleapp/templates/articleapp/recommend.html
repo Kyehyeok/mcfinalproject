@@ -19,9 +19,17 @@
 
   <!--버튼-->
   <div class="sample">
+    {% for i in reco %}
+        <span>{{ i }}</span>
+    {% endfor %}
 
-    {% if food_list %}
-      {% for food in food_list %}
+    {% for i in result %}
+        <div>{{ i }}</div>
+    {% endfor %}
+
+    {% if result %}
+      {% for food in result %}
+
         <span>
             <button class="open-modal">{{ food.name }}</button>
         <div class="modal">
@@ -35,8 +43,8 @@
                         {% csrf_token %}
                         {{ "없는 식재료 체크" }}
                         {% for food_detail in food_detail_list %}
-                            {% if food.code == food_detail.code %}
-                                <p><input type="checkbox" name="checks[]" value="{{ food_detail.keyword }}">{{ food_detail.ingredient }}</input></p>
+                            {% if food.name == food_detail.name %}
+                                <p><input type="checkbox" name="checks[]" value="{{ food_detail.ingredient }}">{{ food_detail.ingredient }}</input></p>
                             {% endif %}
                         {% endfor %}
                         <hr>

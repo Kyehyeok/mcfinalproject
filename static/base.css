@@ -49,7 +49,17 @@ button:hover {
     color:#111;
   }
 
+
 button.open-modal {
+    background: #000;
+    border-radius: 5px;
+    color: #fff;
+    display: inline-block;
+    margin: 1rem 0.5rem;
+    padding: 1rem;
+}
+
+input.open-modal {
     background: #000;
     border-radius: 5px;
     color: #fff;

@@ -19,21 +19,24 @@
 <div class="sample">
 
     {% for ing in check_ingre %}
+
         <p>{{ ing }}</p>
+         <hr>
             <div>
                 {% for product in ingre_list %}
-                    {% if product.keyword %}
                         {% if product.keyword == ing %}
-                            <span>
 
-                                <button class="open-modal" type="button">
-                                    <img style="width: 10rem; border-radius: 1rem;" src ="{{ product.imageurl }}" alt="">
-                                    <div>
-                                        {{ product.ingredient }}
-                                    </div>
-                                    <div>
-                                        {{ product.price }}
-                                    </div>
+                            <span>
+                                <button id="click" class="open-modal" type="button">
+
+                                        <img style="width: 10rem; border-radius: 1rem;" src ="{{ product.imageurl }}" alt="">
+                                        <div>
+                                            {{ product.ingredient }}
+                                        </div>
+                                        <div>
+                                            {{ product.price }}원
+                                        </div>
+
                                 </button>
 
                                 <div class="modal">
@@ -54,17 +57,20 @@
 
                                         <div class="modal-footer">
                                             <button class="close-modal">즉시 구매</button>
+
                                             <button class="close-modal">장바구니 넣기</button>
                                         </div>
 
                                     </div>
                                 </div>
                             </span>
+
+
                         {% endif %}
-                    {% endif %}
+
                 {% endfor %}
             </div>
-
+            <hr>
     {% endfor %}
 
 </div>

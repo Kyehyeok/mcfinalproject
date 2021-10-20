@@ -34,15 +34,20 @@ border: 5px solid black; width: 0.1px; height: 500px;
                 <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="채소" onclick="execute(this);">
                 <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="정육계란" onclick="execute(this);">
                 <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="수산해산건어물" onclick="execute(this);">
+                <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="국반찬메인요리" onclick="execute(this);">
                 <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="과일견과쌀" onclick="execute(this);">
             </div>
 
         <div id="show_ingre" ></div>
     </div>
-    <div class="child2" style="background: #FA5858; margin: 5rem;">
-        <div>추가하신 식재료 리스트</div>
-        <div id='result'></div>
-    </div>
+<div class="child2" style="background: #FA5858; margin: 5rem;">
+        <form action="{% url 'articleapp:recommend' %}" method="POST">
+            {% csrf_token %}
+                <div>추가하신 식재료 리스트</div>
+                <div id='result'></div>
+            <input type="submit" class="btn btn-outline-dark mt-3 mb-3 px-3" value="추천">
+        </form>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -52,7 +57,7 @@ border: 5px solid black; width: 0.1px; height: 500px;
     posts.forEach(function(e){
     if(e['bigcat'] == bt.value){
         var target = document.getElementById("show_ingre");
-        html += "<button type='button' id='test' class='open-modal' name=ingre value =";
+        html += "<button type='button' id='test' class='open-modal' name='ingre' value =";
         html += e['keyword'].replace(" ","");
         html += " onclick='getButtonValue(this);'>";
         html += e['keyword'];
@@ -64,7 +69,7 @@ border: 5px solid black; width: 0.1px; height: 500px;
 
     function getButtonValue(bt) {
     var target = document.getElementById("result");
-    target.innerHTML += "<button type='button' class='open-modal' value="+bt.value+" onclick='getDeleteValue(this);'>"+ bt.value+ "</button>";
+    target.innerHTML += "<input class='open-modal' name='reco[]' value="+bt.value+" onclick='getDeleteValue(this);'>";
     }
 
     function getDeleteValue(bt) {

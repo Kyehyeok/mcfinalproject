@@ -6,12 +6,12 @@ from articleapp.models import Ingredient, Food, FoodDetail, IngredientUnique
 class IngredientListForm(ModelForm):
     class Meta:
         model = Ingredient
-        fields = ['code','ingredient','price','subscribe','bigcat','smallcat','imageurl','quantity','keyword']
+        fields = ['code','ingredient','price','subscribe','bigcat','smallcat','imageurl','quantity','keyword','weight']
 
 class FoodListForm(ModelForm):
     class Meta:
         model = Food
-        fields = ['code','name','ingredient','quantity']
+        fields = ['code','name','ingredient','quantity','keyword']
 
 class FoodDetailListForm(ModelForm):
     class Meta:
