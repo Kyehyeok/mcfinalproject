@@ -18,19 +18,32 @@
 </style>
 
 <div class="sample">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div>
+            <input type="submit" class="btn btn-outline-dark mt-3 mb-3 px-3" name="check_category" value="채소">
+            <input type="submit" class="btn btn-outline-dark mt-3 mb-3 px-3" name="check_category" value="정육계란">
+            <input type="submit" class="btn btn-outline-dark mt-3 mb-3 px-3" name="check_category" value="수산해산건어물">
+            <input type="submit" class="btn btn-outline-dark mt-3 mb-3 px-3" name="check_category" value="과일견과쌀">
+         </div>
+    </form>
+
+      {{ page_obj }}
+
+
       {% if ingredient_list %}
           {% for ingredient in ingredient_list %}
-             <span>
-
+            {% if ingredient.bigcat == category %}
+            <span>
                 <button id="check" class="open-modal" type="button">
                      <img style="width: 10rem; border-radius: 1rem;" src ="{{ ingredient.imageurl }}" alt="">
                         <div>
                             {{ ingredient.ingredient }}
                         </div>
+
                         <div>
                             {{ ingredient.price }}원
                         </div>
-
                 </button>
 
                  <div class="modal">
@@ -48,7 +61,6 @@
                                 {{ 없음 }}
                             {% endif %}
 
-
                          </div>
 
                          <div class="modal-footer">
@@ -59,19 +71,25 @@
                     </div>
                 </div>
              </span>
-
+            {% endif %}
           {% endfor %}
+
       {% else %}
         <h3>NO</h3>
-
       {% endif %}
 
-
-    </div>
+</div>
 
 <script src="{% static 'js/modal.js' %}"></script>
 <script src="{% static 'js/magicgrid.js' %}"></script>
 
+{% for contact in page_obj %}
+    {# Each "contact" is a Contact model object. #}
+    {{ contact.full_name|upper }}<br>
 
-{% include 'snippets/pagination.html' with page_obj=page_obj %}
+{% endfor %}
+
+
+<!--{% include 'snippets/pagination.html' with page_obj=page_obj %}-->
+
 {% endblock %}

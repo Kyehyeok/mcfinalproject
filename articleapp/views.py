@@ -3,6 +3,7 @@
 import json
 
 import pandas as pd
+from django.core.paginator import Paginator
 
 from django.http import request
 from django.shortcuts import redirect, render
@@ -16,7 +17,12 @@ class IngredientListView(ListView):
     model = Ingredient
     context_object_name = 'ingredient_list'
     template_name = 'articleapp/ingredient_list.html'
-    paginate_by = 30
+    paginate_by = 50
+
+    def post(self, request):
+        ingredient_list = Ingredient.objects.all()
+        category = request.POST.get('check_category')
+        return render(request, 'articleapp/ingredient_list.html', {'category': category, 'ingredient_list': ingredient_list })
 
 
 class FoodListView(ListView):
@@ -31,6 +37,7 @@ class FoodListView(ListView):
         # 모든 쿼리 집합을 context 객체에 추가한다.
         context['food_detail_list'] = FoodDetail.objects.all()
         return context
+
 
 class FoodDetailListView(ListView):
     model = FoodDetail
@@ -60,6 +67,7 @@ class MealkitBuyView(ListView):
         mealkit_list = Mealkit.objects.all()
         check = request.POST.get('check_mealkit')
         return render(request, 'articleapp/mealkit_buy.html', {'check_mealkit': check,'mealkit_list':mealkit_list})
+
 
 class MyFridgeView(ListView):
     model = IngredientUnique
@@ -127,4 +135,3 @@ class RecommendView(ListView):
             result = sorted(ranking_list, key=lambda x: (-x['score']))[:5]
 
         return render(request, 'articleapp/recommend.html', {'reco': reco, 'food_detail_list': food_detail_list, 'result':result})
-
