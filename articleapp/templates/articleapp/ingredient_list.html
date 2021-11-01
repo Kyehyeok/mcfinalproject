@@ -28,49 +28,47 @@
          </div>
     </form>
 
-      {{ page_obj }}
-
-
       {% if ingredient_list %}
           {% for ingredient in ingredient_list %}
             {% if ingredient.bigcat == category %}
-            <span>
-                <button id="check" class="open-modal" type="button">
-                     <img style="width: 10rem; border-radius: 1rem;" src ="{{ ingredient.imageurl }}" alt="">
-                        <div>
-                            {{ ingredient.ingredient }}
+                <span>
+                    <button id="check" class="open-modal" type="button">
+                         <img style="width: 10rem; border-radius: 1rem;" src ="{{ ingredient.imageurl }}" alt="">
+                            <div>
+                                {{ ingredient.ingredient }}
+                            </div>
+
+                            <div>
+                                {{ ingredient.price }}원
+                            </div>
+                    </button>
+
+                     <div class="modal">
+                         <div class="modal-content">
+
+                             <div class="modal-header">
+                                <h2 class="modal-title">{{ ingredient.ingredient }} {{ " | " }} {{ ingredient.price }}원</h2>
+                                <button class="close-modal">&times</button>
+                             </div>
+
+                             <div class="modal-body">
+                                {% if ingredient.subscribe %}
+                                    {{ ingredient.subscribe }}
+                                {% else %}
+                                    {{ 없음 }}
+                                {% endif %}
+
+                             </div>
+
+                             <div class="modal-footer">
+                                    {% if ingredient.url %}
+                                        <a href="{{ ingredient.url }}">바로구매 하기</a>
+                                    {% endif %}
+                             </div>
+
                         </div>
-
-                        <div>
-                            {{ ingredient.price }}원
-                        </div>
-                </button>
-
-                 <div class="modal">
-                     <div class="modal-content">
-
-                         <div class="modal-header">
-                            <h2 class="modal-title">{{ ingredient.ingredient }} {{ "/" }} {{ ingredient.price }}</h2>
-                            <button class="close-modal">&times</button>
-                         </div>
-
-                         <div class="modal-body">
-                            {% if ingredient.subscribe %}
-                                {{ ingredient.subscribe }}
-                            {% else %}
-                                {{ 없음 }}
-                            {% endif %}
-
-                         </div>
-
-                         <div class="modal-footer">
-                            <button class="close-modal">즉시 구매</button>
-                            <button class="close-modal">장바구니 넣기</button>
-                         </div>
-
                     </div>
-                </div>
-             </span>
+                 </span>
             {% endif %}
           {% endfor %}
 

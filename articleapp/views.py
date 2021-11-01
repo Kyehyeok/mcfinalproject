@@ -10,14 +10,14 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 
-from articleapp.models import Ingredient, Food, FoodDetail, Mealkit, IngredientUnique
+from articleapp.models import Ingredient, Food, FoodDetail, Mealkit, IngredientUnique, Starpoint
 
 
 class IngredientListView(ListView):
     model = Ingredient
     context_object_name = 'ingredient_list'
     template_name = 'articleapp/ingredient_list.html'
-    paginate_by = 50
+    paginate_by = 30
 
     def post(self, request):
         ingredient_list = Ingredient.objects.all()
@@ -36,7 +36,21 @@ class FoodListView(ListView):
         context = super(FoodListView, self).get_context_data(**kwargs)
         # 모든 쿼리 집합을 context 객체에 추가한다.
         context['food_detail_list'] = FoodDetail.objects.all()
+
         return context
+
+    def post(self, request):
+        if request.method =='POST':
+            post = Starpoint()
+            post.star_point=request.POST['star']
+            post.user=self.request.user
+            post.post_food = request.POST['food_name']
+            post.save()
+            return render(request, 'articleapp/food_list.html', {'post': post})
+
+        else:
+            post = Starpoint.objects.all()
+            return render(request, 'articleapp/food_list.html', {'post': post})
 
 
 class FoodDetailListView(ListView):
@@ -81,6 +95,9 @@ class MyFridgeView(ListView):
             "posts_js": json.dumps([post.to_json() for post in posts])
         }
         return context
+
+
+
     # def post(self, request, *argc, **kwargs):
     #     unique_list = IngredientUnique.objects.all()
     #     ingredient_list = Ingredient.objects.all()
@@ -89,12 +106,15 @@ class MyFridgeView(ListView):
     #
     #     return render(request, 'articleapp/my_fridge.html',{'category':check_cat, 'ingre_list': ingredient_list, 'unique_list':unique_list ,'check_ingre': check_ingre })
 
+
+
 class RecommendView(ListView):
     model = FoodDetail
     context_object_name = 'fooddetail'
     template_name = 'articleapp/recommend.html'
 
     def post(self, request):
+        food_list=Food.objects.all()
         food_detail_list=FoodDetail.objects.all()
         fooddetail_value = FoodDetail.objects.all().values()
         fooddetail_df=pd.DataFrame(fooddetail_value).copy()
@@ -132,6 +152,66 @@ class RecommendView(ListView):
                 "require_ingred": list(require_ingred),
                 "score": score
             })
-            result = sorted(ranking_list, key=lambda x: (-x['score']))[:5]
+            result = sorted(ranking_list, key=lambda x: (-x['score']))[:10]
 
-        return render(request, 'articleapp/recommend.html', {'reco': reco, 'food_detail_list': food_detail_list, 'result':result})
+        return render(request, 'articleapp/recommend.html', {'reco': reco, 'food_detail_list': food_detail_list, 'result':result,'food_list' : food_list})
+
+    # def post(self, request):
+    #     if request.method == 'POST':
+    #         post = Starpoint()
+    #         print(request.POST['star'])
+    #         post.star_point = request.POST['star']
+    #         post.user = self.request.user
+    #         post.post_food = request.POST['food_name']
+    #
+    #         post.save()
+    #         return render(request, 'articleapp/food_list.html', {'post': post})
+    #
+    #     else:
+    #         post = Starpoint.objects.all()
+    #         return render(request, 'articleapp/food_list.html', {'post': post})
+
+        # def post(self, request):
+        #     food_list = Food.objects.all()
+        #     food_detail_list = FoodDetail.objects.all()
+        #     fooddetail_value = FoodDetail.objects.all().values()
+        #     fooddetail_df = pd.DataFrame(fooddetail_value).copy()
+        #
+        #     reco = request.POST.getlist('reco[]')
+        #
+        #     input_list = set(reco)
+        #     sub_list = ['소금', '후추', '간장', '마요네즈', '설탕', '물', '올리브오일', '민트잎', '꿀', '허브', '항귀', '바질', '레몬즙']
+        #     ranking_list = []
+        #
+        #     recipe_list_df = fooddetail_df.set_index('name').groupby('name').agg(lambda x: x.tolist())
+        #     for i in range(len(recipe_list_df)):
+        #         recipe_ingred = set(recipe_list_df['ingredient'][i])
+        #         require_ingred = (recipe_ingred - input_list)
+        #         exist_ingred = (recipe_ingred & input_list)
+        #
+        #         temp_require = list(exist_ingred)
+        #
+        #         sub_ingred_list = []
+        #         main_ingred_list = []
+        #         for k in range(len(temp_require)):
+        #             if temp_require[k] in sub_list:
+        #                 sub_ingred_list.append(temp_require[k])
+        #             else:
+        #                 main_ingred_list.append(temp_require[k])
+        #
+        #         try:
+        #             score = ((len(main_ingred_list) * 2) + len(sub_ingred_list)) / len(recipe_ingred)
+        #         except:
+        #             score = 0
+        #
+        #         ranking_list.append({
+        #             "name": recipe_list_df.index[i],
+        #             "exist_ingred": list(exist_ingred),
+        #             "require_ingred": list(require_ingred),
+        #             "score": score
+        #         })
+        #         result = sorted(ranking_list, key=lambda x: (-x['score']))[:10]
+        #
+        #     return render(request, 'articleapp/recommend.html',
+        #                   {'reco': reco, 'food_detail_list': food_detail_list, 'result': result,
+        #                    'food_list': food_list})

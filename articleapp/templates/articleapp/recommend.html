@@ -15,50 +15,118 @@
       width: 100%;
       border-radius: 1rem;
     }
+
+        .parent {
+    display: flex;
+    }
+    .child1 {
+        flex: 2;
+    }
+    .child2 {
+        flex: 1;
+    }
 </style>
 
   <!--버튼-->
   <div class="sample">
-    {% for i in reco %}
-        <span>{{ i }}</span>
-    {% endfor %}
-
-    {% for i in result %}
-        <div>{{ i }}</div>
-    {% endfor %}
-
     {% if result %}
-      {% for food in result %}
-
+      {% for reco_food in result %}
         <span>
-            <button class="open-modal">{{ food.name }}</button>
+            <button class="open-modal">{{ reco_food.name }}</button>
         <div class="modal">
            <div class="modal-content">
                 <div class="modal-header">
-                  <h2 class="modal-title">{{ food.name }}</h2>
+                  <h2 class="modal-title">{{ reco_food.name }}</h2>
                     <button class="close-modal">&times</button>
                 </div>
+
                 <div class="modal-body">
-                    <form action="{% url 'articleapp:ingredient_buy' %}" method="POST">
-                        {% csrf_token %}
-                        {{ "없는 식재료 체크" }}
-                        {% for food_detail in food_detail_list %}
-                            {% if food.name == food_detail.name %}
-                                <p><input type="checkbox" name="checks[]" value="{{ food_detail.ingredient }}">{{ food_detail.ingredient }}</input></p>
-                            {% endif %}
-                        {% endfor %}
-                        <hr>
-                        <button type="submit" >식재료 추가 구매</button>
+                    <div class="parent">
+                        <div class="child1" style="border: solid; margin: 3rem;">
+                            <div style="margin: 1rem; line-height:200%;">
+                                <div style="margin: 1rem;">
+                                    <font size="5rem">{{ "재료법" }}</font>
+                                </div>
+                                <hr>
+                                    {% for food in food_list %}
+                                        {% if food.name == reco_food.name %}
+                                            {{ food.recipe|linebreaksbr }}
+                                        {% endif %}
+                                    {% endfor %}
+                                <hr>
+                                <div><font size="4rem">{{ "음식에 대한 별점를 남겨주세요. 이는 음식 추천에 반영됩니다." }}</font></div>
 
-                    </form>
-                    <form action="{% url 'articleapp:mealkit_buy' %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" name="check_mealkit" value="{{ food.name }}" >밀키트</button>
-                    </form>
-                </div>
+                                <form action="" method="POST">
+                                    {% csrf_token %}
+                                    <div class="startRadio">
+                                        <label class="startRadio__box">
+                                        <input type="radio" name="star" value="{{ 1 }}">
+                                        <span class="startRadio__img"><span class="blind">별 1개</span></span>
+                                      </label>
 
-           </div>
-        </div>
+                                      <label class="startRadio__box">
+                                        <input type="radio" name="star" value="{{ 2 }}">
+                                        <span class="startRadio__img"><span class="blind">별 2개</span></span>
+                                      </label>
+
+                                      <label class="startRadio__box">
+                                        <input type="radio" name="star" value="{{ 3 }}">
+                                        <span class="startRadio__img"><span class="blind">별 3개</span></span>
+                                      </label>
+
+                                      <label class="startRadio__box">
+                                        <input type="radio" name="star" value="{{ 4 }}">
+                                        <span class="startRadio__img"><span class="blind">별 4개</span></span>
+                                      </label>
+
+                                      <label class="startRadio__box">
+                                        <input type="radio" name="star" value="{{ 5 }}">
+                                        <span class="startRadio__img"><span class="blind">별 5개</span></span>
+                                      </label>
+
+                                    </div>
+                                    <button type="submit" name="food_name" value="{{ reco_food.name }}" >별점 제출</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="child2" style="border: solid; margin: 5rem;">
+                            <form action="{% url 'articleapp:ingredient_buy' %}" method="POST">
+                                {% csrf_token %}
+                                <div style="margin: 1rem;">
+                                    <font size="5rem">{{ "없는 식재료 체크해주세요." }}</font>
+                                </div>
+                                <hr>
+
+                                <input type='checkbox' name='checkall' value='selectall' onclick='selectAll(this)'/>
+                                <b>전체 선택</b>
+
+                                    {% for food_detail in food_detail_list %}
+                                        {% if reco_food.name == food_detail.name %}
+                                        <div style="text-align:left; margin:0.5rem; ">
+                                            <input type="checkbox" name="checks[]" style="vertical-align: middle; zoom:1.5;" value="{{ food_detail.ingredient }}">
+                                            <span style="vertical-align: middle; ">{{ food_detail.ingredient }}</span>
+                                            </input>
+                                        </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <hr>
+                                    <div style="vertical-align: bottom; margin: 0.5rem;">
+                                        <button type="submit" >식재료 추가 구매</button>
+                                     </div>
+                            </form>
+                            <form action="{% url 'articleapp:mealkit_buy' %}" method="POST">
+                                {% csrf_token %}
+                                <div style="vertical-align: bottom; margin: 0.5rem;">
+                                    <button type="submit" name="check_mealkit" value="{{ reco_food.name }}" >밀키트 구매</button>
+                                </div>
+                            </form>
+                        </div>
+
+                     </div>
+                 </div>
+               </div>
+            </div>
         </span>
       {% endfor %}
 
@@ -72,7 +140,16 @@
 <script  src="{% static 'js/modal.js' %}"></script>
 <script src="{% static 'js/magicgrid.js' %}"></script>
 
+<script>
+    function selectAll(selectAll)  {
+  const checkboxes
+       = document.getElementsByName('checks[]');
 
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked;
+  })
+}
+</script>
 {% include 'snippets/pagination.html' with page_obj=page_obj %}
 
 

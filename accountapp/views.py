@@ -31,7 +31,6 @@ def hello_world(request):
 
 
 class LoginView(LoginView):
-
     def get_success_url(self):
         return reverse('accountapp:hello_world')
 

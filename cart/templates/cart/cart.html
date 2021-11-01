@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    {% if not cart_items %}
+        <div>
+            <div class="text-center">
+                <br>
+                <h1 class="text-center my_title">
+                    empty
+                </h1>
+                <br>
+                <p class="text-center">
+                    click <a href="{% url 'accountapp:hello_world' %}">here</a> to continue shopping.
+                </p>
+            </div>
+        </div>
+    {% else %}
+        <div>
+            <div class="text_center">
+                <br>
+                <h1 class="text-center my_title">
+                    cart.
+                </h1>
+                <br>
+            </div>
+        </div>
+        <div class="row mx-auto">
+            <div class="text_center">
+                <table>
+                    <thread>
+                        <tr>
+                            <th colspan="5">
+                                yours
+                            </th>
+                        </tr>
+                    </thread>
+                    <tbody>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+{% endblock %}

@@ -27,10 +27,10 @@ border: 5px solid black; width: 0.1px; height: 500px;
 </div>
 
 
-<div class="parent" style=" background: #585858;">
-    <div class="child1" style="background: #2E9AFE; margin: 5rem;">
-        <div>냉장고에 있는 식재료를 추가해주세요</div>
-            <div>
+<div class="parent">
+    <div class="child1" style="border: solid; margin: 5rem;">
+        <div style="margin: 2rem;">냉장고에 있는 식재료를 추가해주세요</div>
+            <div style="margin: 2rem;">
                 <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="채소" onclick="execute(this);">
                 <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="정육계란" onclick="execute(this);">
                 <input type="button" class="btn btn-outline-dark mt-3 mb-3 px-3" value="수산해산건어물" onclick="execute(this);">
@@ -39,12 +39,12 @@ border: 5px solid black; width: 0.1px; height: 500px;
 
         <div id="show_ingre" ></div>
     </div>
-<div class="child2" style="background: #FA5858; margin: 5rem;">
+<div class="child2" style="border: solid; margin: 5rem;">
         <form action="{% url 'articleapp:recommend' %}" method="POST">
             {% csrf_token %}
-                <div>추가하신 식재료 리스트</div>
-                <div id='result'></div>
-            <input type="submit" class="btn btn-outline-dark mt-3 mb-3 px-3" value="추천">
+                <div style="margin: 2rem;">추가하신 식재료 리스트</div>
+                <div style="margin: 2rem;" id='result'></div>
+            <input style="margin: 2rem;" type="submit" class="btn btn-outline-dark mt-3 mb-3 px-3" value="추천">
         </form>
 </div>
 </div>

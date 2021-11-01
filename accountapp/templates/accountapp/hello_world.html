@@ -15,22 +15,50 @@
     justify-content: center;
     align-items: center;
 }
+
+.parent {
+display: flex;
+}
+.child1 {
+    flex: 1;
+}
+.child2 {
+    flex: 1;
+}
+
+.child3 {
+    flex: 1;
+}
 </style>
 <div class="container">
+     <div class="parent">
+        <div class="child1" style="border: solid; margin: 5rem;">
+            <a href="{% url 'articleapp:ingredient' %}">
+                <div class="item">
+                    <font size="5rem">식재료 구매
+                    </font>
+                </div>
+            </a>
+        </div>
 
-        <a href="{% url 'articleapp:ingredient' %}">
-            <div class="item">식재료 구매</div>
-        </a>
+         <div class="child2" style="border: solid; margin: 5rem;">
+            <a href="{% url 'articleapp:food' %}" >
+                <div class="item">
+                    <font size="5rem">음식 고르기
+                    </font>
+                </div>
+            </a>
+        </div>
 
-        <a href="{% url 'articleapp:food' %}" >
-            <div class="item">음식 고르기</div>
-        </a>
-
-
+         <div class="child3" style="border: solid; margin: 5rem;">
         <a href="{% url 'articleapp:my_fridge' %}">
-            <div class="item">냉장고 식재료를 이용한 음식 추천 </div>
+            <div class="item">
+                <font size="5rem">
+                    음식 추천
+                </font>
+            </div>
         </a>
-
+        </div>
 </div>
 
 {% endblock %}
