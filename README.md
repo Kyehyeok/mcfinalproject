@@ -1,6 +1,7 @@
 multicampus project
 
 -app
+
 accontapp:
 The page show CRUD ID
 
